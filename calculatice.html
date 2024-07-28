@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Calculatrice Simple</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+  <div class="container mt-5 d-flex justify-content-center align-items-center">
+    <div class="card">
+      <div class="card-body">
+        <h2 class="card-title text-center">Calculatrice</h2>
+        <div class="form-group">
+          <input type="text" class="form-control" id="calcule" readonly>
+        </div>
+        <div class="row mt-2">
+          <div class="col-3">
+            <button class="btn btn-secondary btn-block" onclick="Numbre('7')">7</button>
+          </div>
+          <div class="col-3">
+            <button class="btn btn-secondary btn-block" onclick="Numbre('8')">8</button>
+          </div>
+          <div class="col-3">
+            <button class="btn btn-secondary btn-block" onclick="Numbre('9')">9</button>
+          </div>
+          <div class="col-3">
+            <button class="btn btn-warning btn-block" onclick="operation('/')">/</button>
+          </div>
+        </div>
+        <div class="row mt-2">
+          <div class="col-3">
+            <button class="btn btn-secondary btn-block" onclick="Numbre('4')">4</button>
+          </div>
+          <div class="col-3">
+            <button class="btn btn-secondary btn-block" onclick="Numbre('5')">5</button>
+          </div>
+          <div class="col-3">
+            <button class="btn btn-secondary btn-block" onclick="Numbre('6')">6</button>
+          </div>
+          <div class="col-3">
+            <button class="btn btn-warning btn-block" onclick="operation('*')">*</button>
+          </div>
+        </div>
+        <div class="row mt-2">
+          <div class="col-3">
+            <button class="btn btn-secondary btn-block" onclick="Numbre('1')">1</button>
+          </div>
+          <div class="col-3">
+            <button class="btn btn-secondary btn-block" onclick="Numbre('2')">2</button>
+          </div>
+          <div class="col-3">
+            <button class="btn btn-secondary btn-block" onclick="Numbre('3')">3</button>
+          </div>
+          <div class="col-3">
+            <button class="btn btn-warning btn-block" onclick="operation('-')">-</button>
+          </div>
+        </div>
+        <div class="row mt-2">
+          <div class="col-3">
+            <button class="btn btn-secondary btn-block" onclick="Numbre('0')">0</button>
+          </div>
+          <div class="col-3">
+            <button class="btn btn-secondary btn-block" onclick="Numbre('.')">.</button>
+          </div>
+          <div class="col-3">
+            <button class="btn btn-success btn-block" onclick="calculate()">=</button>
+          </div>
+          <div class="col-3">
+            <button class="btn btn-warning btn-block" onclick="operation('+')">+</button>
+          </div>
+        </div>
+        <div class="row mt-2">
+          <div class="col-12">
+            <button class="btn btn-danger btn-block" onclick="efface()">C</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let calcule = document.getElementById('calcule');
+    let operator = null;
+    let operand1 = null;
+
+    function Numbre(num) {
+      calcule.value += num;
+    }
+
+    function operation(op) {
+      operator = op;
+      operand1 = parseFloat(calcule.value);
+      calcule.value += op;
+    }
+
+    function calculate() {
+      let operand2 = parseFloat(calcule.value.substring(calcule.value.lastIndexOf(operator) + 1));
+
+      if (operator === '/' && operand2 === 0) {
+        alert("Division par zéro impossible !");
+        calcule.value = '';
+        return;
+      }
+
+      let result = 0;
+      switch (operator) {
+        case '+': result = operand1 + operand2; break;
+        case '-': result = operand1 - operand2; break;
+        case '*': result = operand1 * operand2; break;
+        case '/': result = operand1 / operand2; break;
+      }
+
+      calcule.value = result;
+      operator = null;
+      operand1 = null;
+    }
+
+    function efface() {
+      calcule.value = '';
+      operator = null;
+      operand1 = null;
+    }
+  </script>
+</body>
+</html>
